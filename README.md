@@ -53,11 +53,11 @@ pip install -r requirements.txt
 
 ```bash
 # On Windows PowerShell
-$env:AZURE_OPENAI_ENDPOINT = "https://your-project.services.ai.azure.com/api/projects/project-name"
+$env:AZURE_OPENAI_ENDPOINT = "https://agent-ai-servicesai7wu23avdwjg.openai.azure.com/"
 $env:AZURE_OPENAI_DEPLOYMENT_NAME = "gpt-4.1-mini"
 
 # On macOS/Linux
-export AZURE_OPENAI_ENDPOINT="https://your-project.services.ai.azure.com/api/projects/project-name"
+export AZURE_OPENAI_ENDPOINT="https://agent-ai-servicesai7wu23avdwjg.openai.azure.com/"
 export AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4.1-mini"
 ```
 
