@@ -73,6 +73,43 @@ Enter a message like `what are the laws?`
 
 The application will start an interactive conversation loop where you can ask questions. Type 'exit' or 'quit' to end the session.
 
+### Using MCP Servers
+
+The application supports Model Context Protocol (MCP) servers for extending agent capabilities with remote tools. To use an MCP server:
+
+1. Uncomment one of the MCP tool examples in `main.py`:
+
+   **Example 1 - Microsoft Learn MCP server:**
+   ```python
+   mcp_tool = MCPStreamableHTTPTool(
+       name="learn-mcp",
+       url="https://learn.microsoft.com/mcp",
+       description="Microsoft Learn MCP server"
+   )
+   ```
+
+   **Example 2 - GitHub MCP server with OAuth:**
+   ```python
+   mcp_tool = MCPStreamableHTTPTool(
+       name="github-mcp",
+       url="https://api.github.com/mcp",
+       headers={"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"},
+       description="GitHub MCP server"
+   )
+   ```
+
+2. Uncomment the async context manager line:
+   ```python
+   # async with mcp_tool:
+   ```
+
+3. Uncomment the tools parameter in the ChatAgent:
+   ```python
+   # , tools=mcp_tool
+   ```
+
+For more information about MCP tools, see the [Agent Framework MCP documentation](https://learn.microsoft.com/en-us/agent-framework/user-guide/model-context-protocol/using-mcp-tools?pivots=programming-language-python).
+
 ## Authentication
 
 The application uses `DefaultAzureCredential` for authentication. Make sure you're logged in to Azure CLI:

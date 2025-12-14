@@ -1,6 +1,6 @@
 import asyncio
 import os
-from agent_framework import ChatAgent
+from agent_framework import ChatAgent, MCPStreamableHTTPTool
 from agent_framework.azure import AzureOpenAIChatClient
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
@@ -35,23 +35,38 @@ chat_client = AzureOpenAIChatClient(
     ad_token_provider=token_provider
 )
 
-# Create the agent
-agent = ChatAgent(
-    chat_client=chat_client,
-    instructions=instructions
-)
+# Optional: Create MCP tool from remote URL
+# Example 1 - Microsoft Learn MCP server:
+# mcp_tool = MCPStreamableHTTPTool(
+#     name="learn-mcp",
+#     url="https://learn.microsoft.com/mcp",
+#     description="Microsoft Learn MCP server"
+# )
 
-# Optional: Add MCP tool from remote URL
-# agent.add_mcp_server("https://example.com/mcp-server")
-
-# Optional: Add MCP tool with authentication
-# import httpx
-# headers = {"Authorization": "Bearer YOUR_TOKEN_HERE"}
-# agent.add_mcp_server("https://example.com/mcp-server", headers=headers)
+# Example 2 - GitHub MCP server with OAuth:
+# mcp_tool = MCPStreamableHTTPTool(
+#     name="github-mcp",
+#     url="https://api.github.com/mcp",
+#     headers={"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"},
+#     description="GitHub MCP server"
+# )
 
 # Stay in a loop for continuous conversation
 async def main():
     """Run interactive conversation loop with the agent."""
+    
+    # Optional: Use MCP tool in async context manager
+    # Uncomment to use MCP tools with the agent:
+    # async with mcp_tool:
+    
+    # Create the agent
+    agent = ChatAgent(
+        chat_client=chat_client,
+        instructions=instructions
+        # Uncomment to add MCP tools:
+        # , tools=mcp_tool
+    )
+    
     while True:
         user_message = input("Enter your message: ")
         
