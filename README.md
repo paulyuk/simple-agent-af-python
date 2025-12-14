@@ -19,7 +19,7 @@ This application demonstrates how to create a simple AI agent using Azure AI and
 Set the following environment variables:
 
 - `AZURE_OPENAI_ENDPOINT`: Your Azure OpenAI endpoint
-- `AZURE_OPENAI_DEPLOYMENT_NAME`: Your deployment name (optional, defaults to "gpt-4.1-mini")
+- `AZURE_OPENAI_DEPLOYMENT_NAME`: Your deployment name (optional, defaults to "chat")
 
 ## Dependencies
 
@@ -53,12 +53,12 @@ pip install -r requirements.txt
 
 ```bash
 # On Windows PowerShell
-$env:AZURE_OPENAI_ENDPOINT = "https://agent-ai-servicesai7wu23avdwjg.openai.azure.com/"
-$env:AZURE_OPENAI_DEPLOYMENT_NAME = "gpt-4.1-mini"
+$env:AZURE_OPENAI_ENDPOINT = "https://agent-ai-<unique-id>.openai.azure.com/"
+$env:AZURE_OPENAI_DEPLOYMENT_NAME = "chat"
 
 # On macOS/Linux
-export AZURE_OPENAI_ENDPOINT="https://agent-ai-servicesai7wu23avdwjg.openai.azure.com/"
-export AZURE_OPENAI_DEPLOYMENT_NAME="gpt-4.1-mini"
+export AZURE_OPENAI_ENDPOINT="https://agent-ai-<unique-id>.openai.azure.com/"
+export AZURE_OPENAI_DEPLOYMENT_NAME="chat"
 ```
 
 ## Usage

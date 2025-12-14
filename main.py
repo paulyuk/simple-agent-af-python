@@ -6,7 +6,7 @@ from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
 # Get configuration for agent
 endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "gpt-4.1-mini")
+deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "chat")
 
 if not endpoint:
     raise ValueError("AZURE_OPENAI_ENDPOINT is not set. Please set this environment variable.")
