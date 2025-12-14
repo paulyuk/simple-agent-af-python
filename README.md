@@ -77,29 +77,36 @@ The application will start an interactive conversation loop where you can ask qu
 
 The application supports Model Context Protocol (MCP) servers for extending agent capabilities with remote tools. To use an MCP server:
 
-1. Uncomment the MCP tool configuration in `main.py`:
+1. Uncomment one of the MCP tool examples in `main.py`:
 
-```python
-# Create MCP tool from remote URL
-mcp_tool = MCPStreamableHTTPTool(
-    name="example-mcp",
-    url="https://example.com/mcp",
-    description="Example MCP server tool"
-)
-```
+   **Example 1 - Microsoft Learn MCP server:**
+   ```python
+   mcp_tool = MCPStreamableHTTPTool(
+       name="learn-mcp",
+       url="https://learn.microsoft.com/mcp",
+       description="Microsoft Learn MCP server"
+   )
+   ```
 
-2. For MCP servers requiring authentication, include headers:
+   **Example 2 - GitHub MCP server with OAuth:**
+   ```python
+   mcp_tool = MCPStreamableHTTPTool(
+       name="github-mcp",
+       url="https://api.github.com/mcp",
+       headers={"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"},
+       description="GitHub MCP server"
+   )
+   ```
 
-```python
-mcp_tool = MCPStreamableHTTPTool(
-    name="example-mcp",
-    url="https://example.com/mcp",
-    headers={"Authorization": "Bearer YOUR_TOKEN_HERE"},
-    description="Example MCP server tool with auth"
-)
-```
+2. Uncomment the async context manager line:
+   ```python
+   # async with mcp_tool:
+   ```
 
-3. Uncomment the async context manager usage in the `main()` function to enable the MCP tool with your agent.
+3. Uncomment the tools parameter in the ChatAgent:
+   ```python
+   # , tools=mcp_tool
+   ```
 
 For more information about MCP tools, see the [Agent Framework MCP documentation](https://learn.microsoft.com/en-us/agent-framework/user-guide/model-context-protocol/using-mcp-tools?pivots=programming-language-python).
 

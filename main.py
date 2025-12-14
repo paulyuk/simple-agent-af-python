@@ -36,19 +36,19 @@ chat_client = AzureOpenAIChatClient(
 )
 
 # Optional: Create MCP tool from remote URL
-# Uncomment and configure the following to use an MCP server:
+# Example 1 - Microsoft Learn MCP server:
 # mcp_tool = MCPStreamableHTTPTool(
-#     name="example-mcp",
-#     url="https://example.com/mcp",
-#     description="Example MCP server tool"
+#     name="learn-mcp",
+#     url="https://learn.microsoft.com/mcp",
+#     description="Microsoft Learn MCP server"
 # )
 
-# Optional: Create MCP tool with authentication headers
+# Example 2 - GitHub MCP server with OAuth:
 # mcp_tool = MCPStreamableHTTPTool(
-#     name="example-mcp",
-#     url="https://example.com/mcp",
-#     headers={"Authorization": "Bearer YOUR_TOKEN_HERE"},
-#     description="Example MCP server tool with auth"
+#     name="github-mcp",
+#     url="https://api.github.com/mcp",
+#     headers={"Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}"},
+#     description="GitHub MCP server"
 # )
 
 # Stay in a loop for continuous conversation
@@ -58,31 +58,13 @@ async def main():
     # Optional: Use MCP tool in async context manager
     # Uncomment to use MCP tools with the agent:
     # async with mcp_tool:
-    #     agent = ChatAgent(
-    #         chat_client=chat_client,
-    #         instructions=instructions,
-    #         tools=mcp_tool
-    #     )
-    #     
-    #     while True:
-    #         user_message = input("Enter your message: ")
-    #         
-    #         # Check for exit commands
-    #         if not user_message or user_message.lower() in ["exit", "quit"]:
-    #             print("Goodbye!")
-    #             break
-    #         
-    #         try:
-    #             # Invoke the agent and output the text result
-    #             result = await agent.run(user_message)
-    #             print(f"\n{result.text}\n")
-    #         except Exception as ex:
-    #             print(f"Error: {ex}\n")
     
-    # Create the agent without MCP tools
+    # Create the agent
     agent = ChatAgent(
         chat_client=chat_client,
         instructions=instructions
+        # Uncomment to add MCP tools:
+        # , tools=mcp_tool
     )
     
     while True:
