@@ -1,6 +1,6 @@
 import asyncio
 import os
-from agent_framework import ChatAgent
+from agent_framework import ChatAgent, MCPStreamableHTTPTool
 from agent_framework.azure import AzureOpenAIChatClient
 from azure.identity import DefaultAzureCredential, get_bearer_token_provider
 
@@ -35,23 +35,56 @@ chat_client = AzureOpenAIChatClient(
     ad_token_provider=token_provider
 )
 
-# Create the agent
-agent = ChatAgent(
-    chat_client=chat_client,
-    instructions=instructions
-)
+# Optional: Create MCP tool from remote URL
+# Uncomment and configure the following to use an MCP server:
+# mcp_tool = MCPStreamableHTTPTool(
+#     name="example-mcp",
+#     url="https://example.com/mcp",
+#     description="Example MCP server tool"
+# )
 
-# Optional: Add MCP tool from remote URL
-# agent.add_mcp_server("https://example.com/mcp-server")
-
-# Optional: Add MCP tool with authentication
-# import httpx
-# headers = {"Authorization": "Bearer YOUR_TOKEN_HERE"}
-# agent.add_mcp_server("https://example.com/mcp-server", headers=headers)
+# Optional: Create MCP tool with authentication headers
+# mcp_tool = MCPStreamableHTTPTool(
+#     name="example-mcp",
+#     url="https://example.com/mcp",
+#     headers={"Authorization": "Bearer YOUR_TOKEN_HERE"},
+#     description="Example MCP server tool with auth"
+# )
 
 # Stay in a loop for continuous conversation
 async def main():
     """Run interactive conversation loop with the agent."""
+    
+    # Optional: Use MCP tool in async context manager
+    # Uncomment to use MCP tools with the agent:
+    # async with mcp_tool:
+    #     agent = ChatAgent(
+    #         chat_client=chat_client,
+    #         instructions=instructions,
+    #         tools=mcp_tool
+    #     )
+    #     
+    #     while True:
+    #         user_message = input("Enter your message: ")
+    #         
+    #         # Check for exit commands
+    #         if not user_message or user_message.lower() in ["exit", "quit"]:
+    #             print("Goodbye!")
+    #             break
+    #         
+    #         try:
+    #             # Invoke the agent and output the text result
+    #             result = await agent.run(user_message)
+    #             print(f"\n{result.text}\n")
+    #         except Exception as ex:
+    #             print(f"Error: {ex}\n")
+    
+    # Create the agent without MCP tools
+    agent = ChatAgent(
+        chat_client=chat_client,
+        instructions=instructions
+    )
+    
     while True:
         user_message = input("Enter your message: ")
         
