@@ -25,9 +25,9 @@ Set the following environment variables:
 
 - openai (>=1.0.0) - OpenAI SDK with Azure OpenAI support
 - azure-identity (>=1.17.0)  
-- agent-framework - Microsoft Agent Framework (pre-release)
+- agent-framework (>=1.0.0b260114) - Microsoft Agent Framework (pre-release)
 
-**Note**: This project uses the Azure AI Agent Framework to connect to Azure AI projects.
+**Note**: This project uses the Azure AI Agent Framework to connect to Azure AI projects. Recommend using agent-framework version 1.0.0b260114 or newer.
 
 ## Setup
 
