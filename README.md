@@ -18,8 +18,8 @@ This application demonstrates how to create a simple AI agent using Azure AI and
 
 Set the following environment variables:
 
-- `AZURE_OPENAI_ENDPOINT`: Your Azure OpenAI endpoint
-- `AZURE_OPENAI_DEPLOYMENT_NAME`: Your deployment name (optional, defaults to "chat")
+- `AZURE_AI_PROJECT_ENDPOINT`: Your Azure AI project endpoint
+- `AZURE_AI_MODEL_DEPLOYMENT_NAME`: Your model deployment name (optional, defaults to "chat")
 
 ## Dependencies
 
@@ -32,7 +32,23 @@ Set the following environment variables:
 ## Setup
 
 1. Clone the repository
-2. Create a virtual environment (recommended):
+2. Create a virtual environment and install dependencies:
+
+### Recommended: Using uv (fast Python package manager)
+
+```bash
+# Install uv if you haven't already
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Create virtual environment and install dependencies
+uv venv
+source .venv/bin/activate  # On macOS/Linux
+# .venv\Scripts\activate   # On Windows
+
+uv pip install -r requirements.txt
+```
+
+### Alternative: Using pip
 
 ```bash
 python -m venv venv
@@ -40,30 +56,35 @@ python -m venv venv
 venv\Scripts\activate
 # On macOS/Linux
 source venv/bin/activate
-```
 
-3. Install dependencies:
-
-```bash
-pip install -U agent-framework --pre
 pip install -r requirements.txt
 ```
 
-4. Set the required environment variables:
+3. Set the required environment variables:
 
 ```bash
 # On Windows PowerShell
-$env:AZURE_OPENAI_ENDPOINT = "https://agent-ai-<unique-id>.openai.azure.com/"
-$env:AZURE_OPENAI_DEPLOYMENT_NAME = "chat"
+$env:AZURE_AI_PROJECT_ENDPOINT = "https://agent-ai-<unique-id>.services.ai.azure.com/api/projects/<project-name>"
+$env:AZURE_AI_MODEL_DEPLOYMENT_NAME = "chat"
 
 # On macOS/Linux
-export AZURE_OPENAI_ENDPOINT="https://agent-ai-<unique-id>.openai.azure.com/"
-export AZURE_OPENAI_DEPLOYMENT_NAME="chat"
+export AZURE_AI_PROJECT_ENDPOINT="https://agent-ai-<unique-id>.services.ai.azure.com/api/projects/<project-name>"
+export AZURE_AI_MODEL_DEPLOYMENT_NAME="chat"
 ```
+
+Or create a `.env` file in the project root with these values.
 
 ## Usage
 
 Run the application:
+
+### Recommended: Using uv
+
+```bash
+uv run main.py
+```
+
+### Alternative: Using python
 
 ```bash
 python main.py
