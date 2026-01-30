@@ -33,7 +33,7 @@ For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ### What Gets Deployed
 
-- Microft Foundry AI Project resources with GPT-4.1-mini model
+- Microsoft Foundry AI Project resources with GPT-4.1-mini model
 - Storage, monitoring, and all necessary role assignments
 - Azure Functions app with Python 3.x to host your agent app (Flex Consumption plan)
 - Optional: Azure AI Search (for vector store capabilities, disabled by default)
