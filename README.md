@@ -99,6 +99,8 @@ export AZURE_AI_MODEL_DEPLOYMENT_NAME="chat"
 
 Or create a `.env` file in the project root with these values.
 
+AZURE_AI_PROJECT_ENDPOINT (aka Microsoft Foundry Project Endpoint) and other important details will be in the portal: https://ai.azure.com.  If you have multiple AI projects make sure you select the one created for this lab (see quickstart above).  
+
 ## Usage
 
 Run the application:
