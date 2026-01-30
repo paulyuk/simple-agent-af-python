@@ -1,6 +1,6 @@
 # Simple Agent Framework Quickstart (Python)
 
-A simple AI agent application using Azure AI with Microsoft Agent Framework 2.0.
+A simple AI agent application using Microsoft Foundry (Azure AI) with Microsoft Agent Framework 2.0.
 
 ## Description
 
@@ -13,6 +13,31 @@ This application demonstrates how to create a simple AI agent using Azure AI and
 - Python 3.10+
 - Azure AI project with a deployed model
 - Azure CLI for authentication
+
+## Quickstart - Need Microsoft Foundry Resources?
+
+### Deployment Options
+
+1. **One-Click Deploy**: [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fpaulyuk%2Fsimple-agent-af%2Fmain%2Finfra%2Fdeploybutton%2Fazuredeploy.json)
+
+- **Important** fill in the **Principal ID** field with the guid you see under your username in the [Entra blade of the Azure Portal](https://ms.portal.azure.com/#view/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/~/Overview).  This sets up RBAC permissions needed.  Also **give the environment a name you will remember** so you can find the AI Foundry resource in the named resource group later. 
+   
+2. **Azure Developer CLI** (Recommended for development):
+   ```bash
+   azd auth login
+   azd up
+   ```
+   - Automatically configures your user access for local development
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+### What Gets Deployed
+
+- Microft Foundry AI Project resources with GPT-4.1-mini model
+- Storage, monitoring, and all necessary role assignments
+- Azure Functions app with Python 3.x to host your agent app (Flex Consumption plan)
+- Optional: Azure AI Search (for vector store capabilities, disabled by default)
+- Optional: Cosmos DB (for agent thread storage, disabled by default)
 
 ## Environment Variables
 
