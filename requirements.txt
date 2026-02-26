@@ -1,4 +1,5 @@
 openai>=1.0.0
 azure-identity>=1.17.0
 --pre
-agent-framework
+agent-framework>=1.0.0rc2
+opentelemetry-semantic-conventions-ai==0.4.13
