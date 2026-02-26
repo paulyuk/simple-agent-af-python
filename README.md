@@ -77,9 +77,11 @@ azd up
 
 ## Source Code
 
-The agent logic is in [`main.py`](main.py). It creates an `AzureAIProjectAgentProvider` using `DefaultAzureCredential`, configures an agent with instructions (Asimov's Three Laws of Robotics), and runs an interactive conversation loop where user input is sent to the agent and responses are printed.
+The agent logic is in [`main.py`](main.py). It creates a `CopilotClient`, configures a session with a system message (Asimov's Three Laws of Robotics), and runs an interactive conversation loop where user input is sent to the agent and responses are printed.
 
 ## Learn More
 
-- [Microsoft Agent Framework documentation](https://learn.microsoft.com/en-us/agent-framework/)
+- [GitHub Copilot SDK](https://github.com/github/copilot-sdk)
+- [Copilot SDK Python docs](https://github.com/github/copilot-sdk/tree/main/python)
+- [BYOK (Bring Your Own Key)](https://github.com/github/copilot-sdk/blob/main/docs/auth/byok.md)
 - [Azure Developer CLI](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/)

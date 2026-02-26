@@ -1,12 +1,11 @@
 import asyncio
-from agent_framework.azure import AzureAIProjectAgentProvider
-from azure.identity.aio import DefaultAzureCredential
+from copilot import CopilotClient
 
 """
-Simple Azure AI Agent Example
+Simple Copilot SDK Agent Example
 
-This sample demonstrates basic usage of AzureAIProjectAgentProvider with automatic
-lifecycle management and an interactive conversation loop.
+This sample demonstrates basic usage of the GitHub Copilot SDK with
+a system message (Asimov's Three Laws) and an interactive conversation loop.
 """
 
 instructions = """
@@ -20,32 +19,30 @@ instructions = """
 
 async def main():
     """Run interactive conversation loop with the agent."""
-    print("=== Simple Azure AI Agent ===\n")
-    
-    # For authentication, DefaultAzureCredential checks: Environment Vars -> Azure CLI -> Managed Identity
-    async with (
-        DefaultAzureCredential() as credential,
-        AzureAIProjectAgentProvider(credential=credential) as provider,
-    ):
-        agent = await provider.create_agent(
-            name="RobotAgent",
-            instructions=instructions,
-        )
-        
-        while True:
-            user_message = input("Enter your message: ")
-            
-            # Check for exit commands
-            if not user_message or user_message.lower() in ["exit", "quit"]:
-                print("Goodbye!")
-                break
-            
-            try:
-                # Invoke the agent and output the text result
-                result = await agent.run(user_message)
-                print(f"\nAgent: {result}\n")
-            except Exception as ex:
-                print(f"Error: {ex}\n")
+    print("=== Simple Copilot SDK Agent ===\n")
+
+    client = CopilotClient()
+    await client.start()
+
+    session = await client.create_session({
+        "system_message": {"content": instructions},
+    })
+
+    while True:
+        user_message = input("Enter your message: ")
+
+        if not user_message or user_message.lower() in ["exit", "quit"]:
+            print("Goodbye!")
+            break
+
+        try:
+            reply = await session.send_and_wait({"prompt": user_message})
+            print(f"\nAgent: {reply.data.content if reply else 'No response'}\n")
+        except Exception as ex:
+            print(f"Error: {ex}\n")
+
+    await session.destroy()
+    await client.stop()
 
 
 if __name__ == "__main__":
