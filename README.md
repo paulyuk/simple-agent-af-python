@@ -4,7 +4,7 @@ A simple AI agent using Microsoft Foundry (Azure AI) with the Microsoft Agent Fr
 
 ## Prerequisites
 
-- [Python 3.11+](https://docs.astral.sh/uv/getting-started/installation/)
+- [Python 3.11+](https://docs.astral.sh/uv/getting-started/installation/) (via [uv](https://docs.astral.sh/uv/))
 - [Azure Functions Core Tools](https://learn.microsoft.com/en-us/azure/azure-functions/functions-run-local#install-the-azure-functions-core-tools)
 - [Azure Developer CLI (azd)](https://aka.ms/azd-install) (only needed for deploying Azure resources)
 - Access to an AI model via one of:
