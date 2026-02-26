@@ -4,11 +4,16 @@ A simple AI agent using Microsoft Foundry (Azure AI) with the Microsoft Agent Fr
 
 ## Prerequisites
 
-- Python 3.11+
+- [Python 3.11+](https://docs.astral.sh/uv/getting-started/installation/)
 - [Azure Developer CLI (azd)](https://aka.ms/azd-install)
-- Azure CLI (`az login`)
+- [Azure CLI](https://aka.ms/install-azure-cli)
+- Access to an AI model via one of:
+  - **GitHub Copilot subscription** — models are available automatically
+  - **Bring Your Own Key (BYOK)** — use an API key from [Microsoft Foundry](https://ai.azure.com) (see [BYOK docs](https://github.com/github/copilot-sdk/blob/main/docs/auth/byok.md))
 
-## Quickstart
+## Deploy Azure AI Resources (if needed)
+
+If you're using BYOK and don't already have a Microsoft Foundry AI project with a model deployed, use one of these options:
 
 ### Option 1: Azure Developer CLI (Recommended)
 
@@ -33,7 +38,7 @@ azd up
 - Optional: Azure AI Search for vector store (disabled by default)
 - Optional: Cosmos DB for agent thread storage (disabled by default)
 
-## Setup
+## Quickstart
 
 1. Clone the repository
 
@@ -56,21 +61,23 @@ azd up
 
    Or copy `.env.example` to `.env` and fill in values. Find your project endpoint at [ai.azure.com](https://ai.azure.com).
 
-## Usage
+4. Log in to Azure for authentication:
 
-```bash
-uv run main.py
-```
+   ```bash
+   az login
+   ```
 
-Enter a message like `what are the laws?` — type `exit` or `quit` to end the session.
+5. Run the agent:
 
-## Authentication
+   ```bash
+   uv run main.py
+   ```
 
-Uses `DefaultAzureCredential` — ensure you're logged in:
+   Enter a message like `what are the laws?` — type `exit` or `quit` to end the session.
 
-```bash
-az login
-```
+## Source Code
+
+The agent logic is in [`main.py`](main.py). It creates an `AzureAIProjectAgentProvider` using `DefaultAzureCredential`, configures an agent with instructions (Asimov's Three Laws of Robotics), and runs an interactive conversation loop where user input is sent to the agent and responses are printed.
 
 ## Learn More
 
