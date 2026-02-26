@@ -1,4 +1,4 @@
-# Simple Agent Framework Quickstart (Python)
+# Simple Agent QuickStart (Python Copilot SDK)
 
 A simple AI agent using Microsoft Foundry (Azure AI) with the Microsoft Agent Framework.
 
