@@ -5,8 +5,7 @@ A simple AI agent using Microsoft Foundry (Azure AI) with the Microsoft Agent Fr
 ## Prerequisites
 
 - [Python 3.11+](https://docs.astral.sh/uv/getting-started/installation/)
-- [Azure Developer CLI (azd)](https://aka.ms/azd-install)
-- [Azure CLI](https://aka.ms/install-azure-cli)
+- [Azure Developer CLI (azd)](https://aka.ms/azd-install) (only needed for deploying Azure resources)
 - Access to an AI model via one of:
   - **GitHub Copilot subscription** — models are available automatically
   - **Bring Your Own Key (BYOK)** — use an API key from [Microsoft Foundry](https://ai.azure.com) (see [BYOK docs](https://github.com/github/copilot-sdk/blob/main/docs/auth/byok.md))
@@ -52,32 +51,50 @@ azd up
    uv pip install -r requirements.txt
    ```
 
-3. Configure environment variables (created automatically by `azd up`, or set manually):
+3. Run the function locally:
 
    ```bash
-   export AZURE_AI_PROJECT_ENDPOINT="https://<your-ai-services>.services.ai.azure.com/api/projects/<your-project>"
-   export AZURE_AI_MODEL_DEPLOYMENT_NAME="chat"
+   func start
    ```
 
-   Or copy `.env.example` to `.env` and fill in values. Find your project endpoint at [ai.azure.com](https://ai.azure.com).
-
-4. Log in to Azure for authentication:
+4. Test the agent (in a new terminal):
 
    ```bash
-   az login
+   # Interactive chat client
+   uv run chat.py
+
+   # Or use curl directly
+   curl -X POST http://localhost:7071/api/ask -d "what are the laws"
    ```
 
-5. Run the agent:
+   Set `AGENT_URL` to point to a deployed instance:
 
    ```bash
-   uv run main.py
+   AGENT_URL=https://<your-function-app>.azurewebsites.net uv run chat.py
    ```
-
-   Enter a message like `what are the laws?` — type `exit` or `quit` to end the session.
 
 ## Source Code
 
-The agent logic is in [`main.py`](main.py). It creates a `CopilotClient`, configures a session with a system message (Asimov's Three Laws of Robotics), and runs an interactive conversation loop where user input is sent to the agent and responses are printed.
+The agent logic is in [`function_app.py`](function_app.py). It creates a `CopilotClient`, configures a session with a system message (Asimov's Three Laws of Robotics), and exposes an HTTP endpoint (`/api/ask`) that accepts a prompt and returns the agent's response.
+
+[`chat.py`](chat.py) is a lightweight console client that POSTs messages to the function in a loop, giving you an interactive chat experience. It defaults to `http://localhost:7071` but can be pointed at a deployed instance via the `AGENT_URL` environment variable.
+
+## Using Azure Foundry (BYOK)
+
+By default the agent uses GitHub Copilot's models. To use your own model from Microsoft Foundry instead, set these environment variables:
+
+```bash
+export AZURE_OPENAI_ENDPOINT="https://<your-ai-services>.openai.azure.com/"
+export AZURE_OPENAI_API_KEY="<your-api-key>"
+export AZURE_OPENAI_MODEL="gpt-5-mini"  # optional, defaults to gpt-5-mini
+```
+
+**Getting these values:**
+- If you ran `azd up`, the endpoint is already in your environment — run `azd env get-values | grep AZURE_OPENAI_ENDPOINT`
+- For the API key, go to [Azure Portal](https://portal.azure.com) → your AI Services resource → **Keys and Endpoint** → select the **Azure OpenAI** tab
+- Or find both in the [Azure AI Foundry portal](https://ai.azure.com) under your project settings
+
+See the [BYOK docs](https://github.com/github/copilot-sdk/blob/main/docs/auth/byok.md) for details.
 
 ## Learn More
 
