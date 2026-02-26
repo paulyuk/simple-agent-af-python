@@ -42,10 +42,9 @@ azd up
 
 1. Clone the repository
 
-2. Install dependencies using [uv](https://docs.astral.sh/uv/):
+2. Install dependencies:
 
    ```bash
-   curl -LsSf https://astral.sh/uv/install.sh | sh
    uv venv
    source .venv/bin/activate  # macOS/Linux
    # .venv\Scripts\activate   # Windows
